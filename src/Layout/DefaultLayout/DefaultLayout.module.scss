@@ -1,0 +1,44 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    -webkit-transition: all 0.25s linear;
+    -moz-transition: all 0.25s linear;
+    -ms-transition: all 0.25s linear;
+    -o-transition: all 0.25s linear;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    margin-top: 62px;
+    flex-direction: column;
+    height: 2000px;
+}
+
+.content {
+    flex: 1;
+}
+
+.footer {
+}
+
+// @media (min-width: 1024px) and (max-width: 1200px) {
+//     .content {
+//         width: 1131px;
+//     }
+// }
+// /* Tablet  */
+// @media (min-width: 740px) and (max-width: 1023px) {
+// }
+
+// /* >= Moblie */
+// @media (min-width: 740px) {
+// }
+
+// @media (min-width: 1200px) {
+//     .container {
+//         width: 1377px;
+//     }
+// }

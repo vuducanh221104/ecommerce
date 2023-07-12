@@ -1,11 +1,64 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
-
 :root {
-    --primary: #fe2c55;
-    --black: #000;
-    --text-color: #333;
-    --white: #fff;
+    --color: #3f3f3f;
+    --color-main: #3f3f3f;
+    --color-hover: #d70018;
+    --color-red: #d70018;
+    --bgbar: #d70018;
+    --bgnav: #d70018;
+    --ftitle: 'SFDisplay', sans-serif;
+    --freset: 'SFDisplay', sans-serif;
+    --ftitle-spacing: 0.3px;
+    --bs-blue: #0d6efd;
+    --bs-indigo: #6610f2;
+    --bs-purple: #6f42c1;
+    --bs-pink: #d63384;
+    --bs-red: #dc3545;
+    --bs-orange: #fd7e14;
+    --bs-yellow: #ffc107;
+    --bs-green: #198754;
+    --bs-teal: #20c997;
+    --bs-cyan: #0dcaf0;
+    --bs-black: #000;
+    --bs-white: #fff;
+    --bs-gray: #6c757d;
+    --bs-gray-dark: #343a40;
+    --bs-gray-100: #f8f9fa;
+    --bs-gray-200: #e9ecef;
+    --bs-gray-300: #dee2e6;
+    --bs-gray-400: #ced4da;
+    --bs-gray-500: #adb5bd;
+    --bs-gray-600: #6c757d;
+    --bs-gray-700: #495057;
+    --bs-gray-800: #343a40;
+    --bs-gray-900: #212529;
+    --bs-primary: #0d6efd;
+    --bs-secondary: #6c757d;
+    --bs-success: #198754;
+    --bs-info: #0dcaf0;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #f8f9fa;
+    --bs-dark: #212529;
+    --bs-primary-rgb: 13, 110, 253;
+    --bs-secondary-rgb: 108, 117, 125;
+    --bs-success-rgb: 25, 135, 84;
+    --bs-info-rgb: 13, 202, 240;
+    --bs-warning-rgb: 255, 193, 7;
+    --bs-danger-rgb: 220, 53, 69;
+    --bs-light-rgb: 248, 249, 250;
+    --bs-dark-rgb: 33, 37, 41;
+    --bs-primary-text: #0a58ca;
+    --bs-secondary-text: #6c757d;
+    --bs-success-text: #146c43;
+    --bs-info-text: #087990;
+    --bs-warning-text: #997404;
+    --bs-danger-text: #b02a37;
+    --bs-light-text: #6c757d;
+    --bs-dark-text: #495057;
+    --bs-primary-bg-subtle: #cfe2ff;
+    --bs-secondary-bg-subtle: #f8f9fa;
+    --bs-success-bg-subtle: #d1e7dd;
 
     // default
 
@@ -14,18 +67,23 @@
 
 // embeded
 @font-face {
-    font-family: ProximaNova;
-    src: url('/assets/fonts/Proxima-Nova-Regular.woff2');
+    font-family: SF-Pro-Display;
+    src: url('/assets/fonts/SF-Pro-Display-Light.otf') format('opentype');
     font-family: 700;
 }
 @font-face {
-    font-family: ProximaNova;
-    src: url('/assets/fonts/Proxima-Nova-Regular.woff2');
+    font-family: SF-Pro-Display;
+    src: url('/assets/fonts/SF-Pro-Display-Medium.otf') format('opentype');
     font-family: 700;
 }
 @font-face {
-    font-family: ProximaNova;
-    src: url('/assets/fonts/Proxima-Nova-Regular.woff2');
+    font-family: SF-Pro-Display;
+    src: url('/assets/fonts/SF-Pro-Display-Regular.otf') format('opentype');
+    font-family: 700;
+}
+@font-face {
+    font-family: SF-Pro-Display;
+    src: url('/assets/fonts/SF-Pro-Display-Semibold.otf') format('opentype');
     font-family: 700;
 }
 
@@ -40,10 +98,18 @@ html {
 }
 
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'SF Pro Display', sans-serif;
     font-size: 1.6rem;
     overflow-y: auto;
+    position: relative;
+    font: 400 14px/24px var(--freset);
+    color: RGB(0, 8, 28);
+    overflow-x: hidden;
+    width: 100%;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
 //
@@ -70,4 +136,18 @@ input,
 a[href] {
     color: var(--text-color);
     text-decoration: none;
+}
+
+.fa,
+.fab,
+.fad,
+.fal,
+.far,
+.fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
 }

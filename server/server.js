@@ -1,9 +1,15 @@
+var methodOverride = require('method-override');
 const express = require('express');
 const app = express();
 const port = 4000;
 const bodyParser = require('body-parser');
+const cookieParse = require('cookie-parser');
 var cors = require('cors');
+const db = require('./Config/db');
+const routes = require('./routes');
+const products = require('./Models/Products');
 
+app.use(cookieParse());
 // middleware method POST mới chạy đc
 app.use(
     express.urlencoded({
@@ -26,12 +32,13 @@ app.post('/store-data', (req, res) => {
     res.sendStatus(200); // Gửi phản hồi thành công về cho ReactJS
 });
 
-app.get('/api', (req, res, next) => {
-    res.json([
-        { id: 1, name: 'đâs', description: 'Running Shoes.' },
-        { id: 2, name: 'MacBook', description: 'Apple MacBook.' },
-    ]);
-});
+// app.get('/api', (req, res, next) => {
+//     products.find({}).then((data) => res.json(data));
+// });
+
+routes(app);
+
+db.connect();
 
 app.listen(port, () => {
     console.log(`SERVER OK on :http//localhost:${port}`);
