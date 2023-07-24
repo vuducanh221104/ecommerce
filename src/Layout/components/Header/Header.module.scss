@@ -1,34 +1,26 @@
 .wrapper {
     width: 100%;
-    height: 60px;
+    padding: 0 14px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 12%);
     display: flex;
     justify-content: center;
+    flex-direction: column;
     position: fixed;
     left: 0;
     top: 0;
     z-index: 10;
-}
-
-.inner {
-    height: 100%;
-    width: 1250px;
     background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .logo {
+    max-width: 100%;
+    margin-top: -11px;
 }
 
 .logo-link img {
-    width: 200px;
-}
-
-.search,
-.search-result {
-    width: 361px;
+    max-width: 90%;
+    max-height: 37%;
+    object-fit: contain;
 }
 
 .search-title {
@@ -38,41 +30,6 @@
     color: rbga(22, 24, 35, 0.5);
 }
 
-.search {
-    position: relative;
-    display: flex;
-    background-color: #1618230f;
-    height: 46px;
-    padding-left: 16px;
-    border-radius: 96px;
-    border: 1.5px solid transparent;
-    input {
-        color: var(--black);
-        font-size: 1.6rem;
-        width: 100%;
-        height: 100%;
-        background-color: transparent;
-        caret-color: var(--primary);
-    }
-
-    input:not(:placeholder-shown) ~ .sreach-btn {
-        color: rgba(22, 24, 35, 0.75);
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: 9px;
-        right: 52px;
-        height: 65%;
-        width: 1px;
-        background-color: #828282;
-    }
-    &:focus-within {
-        border-color: rgba(22, 24, 35, 0.2);
-    }
-}
-
 .clear,
 .loading {
     position: absolute;
@@ -80,20 +37,6 @@
     top: 50%;
     transform: translateY(-50%);
     color: rgba(22, 24, 35, 0.34);
-}
-
-.sreach-btn {
-    width: 52px;
-    height: 100%;
-    border-top-right-radius: 96px;
-    border-bottom-right-radius: 96px;
-    font-size: 2rem;
-    color: rgba(22, 24, 35, 0.34);
-    &:hover {
-        cursor: pointer;
-        background-color: rgba(22, 24, 35, 0.03);
-        color: rgba(22, 24, 35, 0.75);
-    }
 }
 
 // ACTIONS
@@ -122,4 +65,310 @@
     background-color: transparent;
     padding: 4px 12px;
     cursor: pointer;
+}
+
+// LOGIN - SIGN IN
+.Login {
+    width: 100px;
+    height: 40px;
+    background-color: transparent;
+    color: #000;
+    border-radius: 5px;
+    border: solid var(--color-hover) 1px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 35px;
+    &:hover {
+        border: solid transparent 1px;
+        background-color: rgba(255, 7, 7, 0.8);
+    }
+}
+
+.Signin {
+    width: 50px;
+    height: 35px;
+    background-color: transparent;
+    color: #000;
+    border-radius: 5px;
+    border: solid var(--color-hover) 1px;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 35px;
+    margin-top: 2px;
+    margin-right: 5px;
+    &:hover {
+        border: solid transparent 1px;
+        background-color: rgba(255, 7, 7, 0.8);
+    }
+}
+.button-authen {
+    margin-top: -4px;
+    margin-left: 5px;
+    padding: 1px 16px;
+}
+
+// HOTLINE
+.hotline {
+    display: flex;
+    align-items: start;
+    padding: 1px 16px;
+    cursor: pointer;
+}
+
+.phone-icon {
+    width: 40px;
+    height: 30px;
+    text-decoration: none;
+    color: var(--color-hover);
+    transform: rotateY(180deg);
+    margin-top: 2px;
+}
+
+.hotline-info {
+}
+
+.hotline-name {
+    font-size: 1.1rem;
+    font-size: 500;
+    &:hover {
+        color: var(--bs-blue);
+    }
+}
+
+.hotline-numberphone {
+    color: var(--color-hover);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 20px;
+}
+// CART
+.cart {
+    display: flex;
+    align-items: start;
+    padding: 2px 16px;
+    cursor: pointer;
+    & a {
+        display: flex;
+    }
+}
+
+.cart-icon {
+    width: 40px;
+    height: 30px;
+    text-decoration: none;
+    color: var(--color-hover);
+    margin-top: 2px;
+}
+
+.cart-name {
+    font-size: 1.1rem;
+    font-size: 500;
+    color: var(--color-hover);
+}
+
+.cart-for-you {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    padding-top: 3px;
+    &:hover {
+        color: var(--bs-blue);
+    }
+}
+// HOUSE
+.house {
+    display: flex;
+    align-items: start;
+    padding: 2px 16px;
+    cursor: pointer;
+    & a {
+        display: flex;
+    }
+}
+
+.house-icon {
+    width: 40px;
+    height: 30px;
+    text-decoration: none;
+    color: var(--color-hover);
+    margin-top: 2px;
+}
+
+.house-name {
+    font-size: 1.1rem;
+    &:hover {
+        color: var(--bs-blue);
+    }
+}
+
+.house-for-you {
+    font-size: 1rem;
+    line-height: 1.6rem;
+    color: var(--color-hover);
+    font-weight: 700;
+}
+
+// CONTENT NAV
+
+.content-nav {
+    width: 100%;
+    height: 35.58px;
+    background-color: rgb(241, 240, 241);
+    z-index: 1;
+    position: relative;
+    left: -2px;
+    top: 108px;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding: 0 26px;
+}
+
+.content-nav-list {
+    display: flex;
+}
+.content-nav-item {
+    font-size: 1.3rem;
+    line-height: 38px;
+    padding: 0 4px;
+    color: #000;
+    background: none;
+    margin: 0;
+    list-style: none;
+    font-size: 12px;
+    font-weight: 400;
+    color: inherit;
+    letter-spacing: 0.5px;
+}
+
+/* > PC  */
+@media (min-width: 1024px) and (max-width: 1200px) {
+    .action {
+        padding: 0 20px 0 0;
+    }
+}
+
+/* Tablet  */
+@media (min-width: 740px) and (max-width: 1023px) {
+    .content-nav {
+        display: none;
+    }
+    .wrapper {
+        position: relative;
+        width: 100%;
+        padding: 0 14px;
+        background-color: var(--color-hover);
+    }
+    .logo {
+        max-width: 100%;
+        margin-top: -11px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 0 0px 0 9px;
+    }
+
+    .logo-link img {
+        width: auto;
+        max-height: 17%;
+        object-fit: contain;
+    }
+
+    .hotline {
+        display: none;
+    }
+    .cart {
+        display: none;
+    }
+    .house {
+        display: none;
+    }
+
+    .button-authen {
+        position: relative;
+        top: -5px;
+        left: 0;
+    }
+
+    // LOGIN - SIGN IN
+    .Login {
+        background-color: #fff;
+
+        border: solid #fff 1px;
+        &:hover {
+            border: solid #fff 2px;
+            background-color: transparent;
+        }
+    }
+
+    .Signin {
+        background-color: #fff;
+
+        border: solid #fff 1px;
+
+        &:hover {
+            border: solid #fff 2px;
+            background-color: transparent;
+        }
+    }
+}
+
+/* >= Moblie */
+@media (max-width: 740px) {
+    .content-nav {
+        display: none;
+    }
+    .wrapper {
+        width: 100%;
+        padding: 0px;
+        background-color: var(--color-hover);
+    }
+    .logo {
+        max-width: 100%;
+        margin-top: -11px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 0 0px 0 9px;
+    }
+
+    .logo-link img {
+        width: auto;
+        max-height: 17%;
+        object-fit: contain;
+    }
+    .hotline {
+        display: none;
+    }
+    .cart {
+        display: none;
+    }
+    .house {
+        display: none;
+    }
+
+    .button-authen {
+        position: relative;
+        top: -5px;
+        left: -9px;
+        padding: 0;
+    }
+    .Signin {
+        display: none;
+    }
+    .Login {
+        width: 70px;
+        padding: 0;
+        border-radius: 5px;
+        border: 2px solid #fff;
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 500;
+        &:hover {
+            border: 2px solid #fff;
+            background-color: transparent;
+        }
+    }
+    .wrapper {
+        padding: 0;
+    }
+    .action {
+        padding: 0;
+    }
 }

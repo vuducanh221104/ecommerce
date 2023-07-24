@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
+import { BsTelephone, BsCart, BsHouse } from 'react-icons/bs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSignIn,
-    faEllipsisVertical,
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
@@ -12,15 +12,15 @@ import {
     faCoins,
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import Button from '~/components/Button';
-import Menu from '~/components/Popper/Menu';
+
 import { Link } from 'react-router-dom';
+import Menu from '~/components/Popper/Menu';
 import routesConfig from '~/config/routes';
 import Tippy from '@tippyjs/react/headless';
 import images from '~/assets/images';
-import { UploadIcon } from '~/components/Icons';
-import Image from '~/components/Image';
 import Search from '../Search';
+import HeaderNavSub from '../HeaderNavSub';
+
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -190,6 +190,7 @@ const USER_MENU = [
 ];
 
 function Header() {
+    const dataLS = JSON.parse(localStorage.getItem('key'));
     const handleChangeItem = (menuList) => {
         switch (menuList.code) {
             case 'vn':
@@ -197,47 +198,88 @@ function Header() {
         }
     };
 
-    const currenUser = true;
+    const currenUser = false;
 
     return (
-        <header className={cx('wrapper')}>
-            <div className={cx('inner')}>
-                <Link to={routesConfig.home} className={cx('logo-link')}>
-                    <img src={images.logoMain} alt="Tiktok" />
-                </Link>
-
-                <Search />
-
-                <div className={cx('action')}>
-                    {currenUser ? (
-                        <>
-                            <Tippy content="Upload video" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <UploadIcon />
-                                </button>
-                            </Tippy>
-                        </>
-                    ) : (
-                        <>
-                            <Button text>Upload</Button>
-                            <Button primary rightIcon={<FontAwesomeIcon icon={faSignIn} />}>
-                                Login
-                            </Button>
-                        </>
-                    )}
-                    <Menu items={currenUser ? USER_MENU : MENU_ITEMS} onChange={handleChangeItem}>
-                        {currenUser ? (
-                            <Image src="" className={cx('user-avatar')} alt="vuducanh" fallback={images.avtMain} />
-                        ) : (
-                            <button className={cx('more-btn')}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
-                        )}
-                    </Menu>
+        <>
+            <header className={cx('wrapper')}>
+                {/* Header */}
+                <div className={cx('container-fluid')}>
+                    <div className={cx('row', 'flex-nowrap', 'align-items-center', 'mt-3')}>
+                        <div className={cx('col-4', 'col-xl-2 ', 'col-md-2', 'col-lg-2', 'col-sm-2')}>
+                            <div className={cx('logo')}>
+                                <Link to={routesConfig.home} className={cx('logo-link', 'd-inline-block')}>
+                                    <img src={images.logoMain} alt="iphoneweb" width="202" height="40" />
+                                </Link>
+                            </div>
+                        </div>
+                        <div className={cx('col-6 ', 'col-md-7', 'col-lg-5', 'col-sm-3')}>
+                            <div className={cx('search')}>
+                                <Search />
+                            </div>
+                        </div>
+                        <div className={cx('col-2', 'col-md-3 ', 'col-lg-7', 'col-sm-3')}>
+                            <div className={cx('action')}>
+                                {currenUser ? (
+                                    <button>true</button>
+                                ) : (
+                                    <div className="row">
+                                        {/* HOTLINE */}
+                                        <div className={cx('hotline', 'col-auto', 'px-4')}>
+                                            <BsTelephone className={cx('phone-icon')} />
+                                            <div className="hotline-info">
+                                                <h3 className={cx('hotline-name')}>HOTLINE</h3>
+                                                <p className={cx('hotline-numberphone')}>19003355</p>
+                                            </div>
+                                        </div>
+                                        {/* CART */}
+                                        <div className={cx('cart', 'col-auto', 'px-4')}>
+                                            <Link to="/cart">
+                                                <BsCart className={cx('cart-icon')} />
+                                                <div className="cart-info">
+                                                    <h3 className={cx('cart-name')}>GIỎ HÀNG</h3>
+                                                    {dataLS && dataLS ? (
+                                                        <p className={cx('cart-for-you')}>{dataLS.length} Sản Phẩm</p>
+                                                    ) : (
+                                                        <p className={cx('cart-for-you')}>CỦA BẠN</p>
+                                                    )}
+                                                </div>
+                                            </Link>
+                                        </div>
+                                        {/* HOUSE */}
+                                        <div className={cx('house', 'col-auto', 'px-4')}>
+                                            <Link to="/kiem-tra-don-hang">
+                                                <BsHouse className={cx('house-icon')} />
+                                                <div className="house-info">
+                                                    <h3 className={cx('house-name')}>HỆ THỐNG</h3>
+                                                    <p className={cx('house-for-you')}>CỬA HÀNG</p>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                        {/* LOGIN/SIGN IN */}
+                                        <div className={cx('button-authen', 'col-auto')}>
+                                            <button className={cx('Signin')}>Sign in</button>
+                                            <button className={cx('Login')}>
+                                                Login
+                                                <FontAwesomeIcon icon={faSignIn} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                {/* HeaderNavSub */}
+                <HeaderNavSub />
+            </header>
+            <div className={cx('content-nav')}>
+                <ul className={cx('content-nav-list')}>
+                    <li className={cx('content-nav-item')}>Trang chủ</li>
+                    <li className={cx('content-nav-item')}>/ iPhone</li>
+                </ul>
             </div>
-        </header>
+        </>
     );
 }
-
 export default Header;

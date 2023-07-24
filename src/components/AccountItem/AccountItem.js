@@ -8,15 +8,16 @@ import Image from '../Image';
 
 const cx = classNames.bind(styles);
 function AccountItem({ data }) {
+    console.log(data.name);
     return (
-        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
-            <Image className={cx('avatar')} src={data.avatar} alt="" />
-            <div className={cx('info')}>
-                <p className={cx('name')}>
-                    <h4>{data.full_name}</h4>
-                    <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+        <Link to={`/product/${data.slug}`} className={cx('wrapper', 'row m-0 d-flex')}>
+            <img src={data.cover_image} alt="" className={cx('image-product', 'col-2 px-0')} />
+            <div className={cx('info', 'col ps-2')}>
+                <h3 className={cx('name', 'd-block')}>{data.name}</h3>
+                <p className={cx('description')}>
+                    <span className={cx('price-discount')}>{data.price_discount}đ</span>
+                    <span className={cx('price-real')}>{data.price}đ</span>
                 </p>
-                <span className={cx('username')}>{data.nickname}</span>
             </div>
         </Link>
     );

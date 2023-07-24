@@ -138,6 +138,10 @@ a[href] {
     text-decoration: none;
 }
 
+li {
+    text-decoration: none;
+}
+
 .fa,
 .fab,
 .fad,
@@ -150,4 +154,34 @@ a[href] {
     font-style: normal;
     font-variant: normal;
     text-rendering: auto;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+.f-title {
+    font-family: var(--ftitle);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.header-item-padding {
+    padding: 1px 16px;
+    margin: 0;
+    list-style-type: none;
+}
+
+ul {
+    text-decoration: none;
+    outline: none;
+    list-style: none;
+    list-style-type: none;
+}
+li {
+    text-decoration: none;
+    outline: none;
+    list-style: none;
+    list-style-type: none;
 }

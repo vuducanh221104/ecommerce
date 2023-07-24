@@ -1,43 +1,40 @@
 .wrapper {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     padding: 8px 16px;
     cursor: pointer;
-    &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+
+    .image-product {
+        width: 50px;
     }
-}
 
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+    .info {
+    }
 
-.info {
-    flex: 1;
-    margin-left: 12px;
-    line-height: 22px;
-}
+    .name {
+        font-size: 1.4rem;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        &:hover {
+            color: var(--color-hover);
+        }
+    }
 
-.name {
-    display: flex;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
+    .description {
+        color: var(--color-hover);
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
 
-h4 {
-    font-weight: 500;
-}
+    .price-discount {
+    }
 
-.check {
-    margin-left: 5px;
-    font-size: 1.5rem;
-    color: rgb(32, 213, 236);
-}
-
-.username {
-    margin-top: 10px;
-    font-size: 1.3rem;
+    .price-real {
+        margin-left: 5px;
+        color: #000;
+        text-decoration: line-through;
+        font-weight: 400;
+        font-size: 1.35rem;
+    }
 }

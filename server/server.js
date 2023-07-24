@@ -8,6 +8,8 @@ var cors = require('cors');
 const db = require('./Config/db');
 const routes = require('./routes');
 const products = require('./Models/Products');
+const http = require('http');
+const server = http.createServer(app);
 
 app.use(cookieParse());
 // middleware method POST mới chạy đc
@@ -40,6 +42,7 @@ routes(app);
 
 db.connect();
 
-app.listen(port, () => {
+//app
+server.listen(port, () => {
     console.log(`SERVER OK on :http//localhost:${port}`);
 });

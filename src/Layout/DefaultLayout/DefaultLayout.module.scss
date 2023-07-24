@@ -12,7 +12,7 @@
 .container {
     width: 100%;
     display: flex;
-    margin-top: 62px;
+    margin-top: 120px;
     flex-direction: column;
     height: 2000px;
 }
@@ -42,3 +42,21 @@
 //         width: 1377px;
 //     }
 // }
+
+/* > PC  */
+@media (min-width: 1024px) and (max-width: 1200px) {
+}
+
+/* Tablet  */
+@media (min-width: 740px) and (max-width: 1023px) {
+    .container {
+        margin-top: 10px;
+    }
+}
+
+/* >= Moblie */
+@media (max-width: 740px) {
+    .container {
+        margin-top: 60px;
+    }
+}

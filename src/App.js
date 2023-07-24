@@ -2,12 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/Layout';
 import { Fragment } from 'react';
-import Slug from './pages/SlugContent';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
     return (
         <Router>
             <div className="App">
+                <ScrollToTop />
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;

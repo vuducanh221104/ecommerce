@@ -29,7 +29,7 @@ function Search() {
 
         setLoading(true);
         const fetchApi = async () => {
-            const result = await searchServices.search(debounced);
+            const result = await searchServices.productSearch(debounced);
             setSearchResult(result);
             setLoading(false);
         };
@@ -68,11 +68,13 @@ function Search() {
                     </div>
                 )}
                 onClickOutside={handleOutside}
+                placement="bottom-start" // Đặt placement thành "bottom-start"
+                offset={[30, 0]} // Điều chỉnh giá trị offset theo ý muốn
             >
                 <div className={cx('search')}>
                     <input
                         ref={nameRef}
-                        placeholder="Search accounts and videos"
+                        placeholder="What are you looking for?"
                         spellCheck={false}
                         onChange={onChangeInput}
                         onFocus={handleFocus}
