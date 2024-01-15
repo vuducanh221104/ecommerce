@@ -1,25 +1,55 @@
 import styles from './ProductInfo.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faAngleLeft, faStar, faGift, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { BsCaretRight, BsCaretLeft } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { faStar, faGift, faCartPlus, faComment } from '@fortawesome/free-solid-svg-icons';
+import { BsCaretRight, BsCaretLeft, BsCheckCircle } from 'react-icons/bs';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { setLocalStorage, getLocalStorage } from '~/components/EncodeLocalStorage';
+import MarkdownRender from '~/components/MarkdownRender';
+import FormattedPrice from '~/components/FormattedPrice';
+import { useQuantityProductCart } from '~/Context/CartContext/CartContext';
+import ModalLoading from '~/components/ModalLoading';
+
 const cx = classNames.bind(styles);
 
-function ProductInfo({ handleAddToCart, handleToBuyNow }) {
-    const [data, setData] = useState();
+function ProductInfo({ data }) {
+    const myRef = useRef(null);
+    const Navigate = useNavigate();
+    const { handleQuantityInCart } = useQuantityProductCart();
+    const [cartItems, setCartItems] = useState([]);
+
+    const [width, setWidth] = useState(0);
     const [activeImageIndex, setActiveImageIndex] = useState(0);
     const [isDoubleClicked, setIsDoubleClicked] = useState(false);
     const [currentThumbnailSrc, setCurrentThumbnailSrc] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-    const { slug } = useParams();
+    const [newPrice, setNewPrice] = useState(0);
+    const [activeColorIndex, setActiveColorIndex] = useState(0);
+    const [selectPrice, setSelectPrice] = useState(0);
+    const [selectNameColor, setSelectNameColor] = useState('');
 
+    const productDescription = data?.description;
+    console.log(data);
+    // Hàm xử lý khi sự kiện resize xảy ra
+    const handleResize = () => {
+        if (myRef.current) {
+            const newWidth = myRef.current.offsetWidth;
+            setWidth(newWidth - 16);
+        }
+    };
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/product/${slug}`).then((data) => setData(data.data));
-    }, [slug]);
+        window.addEventListener('resize', handleResize);
 
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    });
+
+    //  Handle Next - Next of Thumb-Images
     const handleNext = (e) => {
         if (!isDoubleClicked) {
             setIsDoubleClicked(true);
@@ -34,6 +64,7 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
         }, 200);
     };
 
+    //  Handle Prev - Prev of Thumb-Images
     const handlePrev = () => {
         setActiveImageIndex((prevIndex) => {
             if (prevIndex < 1) {
@@ -46,54 +77,128 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
         }, 200);
     };
 
+    // Handle Click to Images-details
     const handleThumbnailClick = (index) => {
         setActiveImageIndex(index);
         setCurrentThumbnailSrc(null);
     };
 
-    const handleColorClick = (index) => {
-        setActiveImageIndex(index);
-    };
+    // Get LocalStorage data in cart ( ADD ALL IN LOCALSTORAGE)
+    useEffect(() => {
+        const cartFromLocalStorage = getLocalStorage('addToCart', 'addToCart');
+        if (cartFromLocalStorage && cartFromLocalStorage.length > 0) {
+            setCartItems(cartFromLocalStorage);
+        }
+    }, []);
 
+    // Set Localstorage when quantity in cart change
+    useEffect(() => {
+        setLocalStorage('addToCart', cartItems, 'addToCart');
+    }, [cartItems]);
+
+    // Handle when click add to cart
     const handleAddCart = () => {
-        const dataProduct = data;
-        if (handleAddToCart) {
-            handleAddToCart(dataProduct);
+        const selectedColor = selectNameColor ? selectNameColor : data.color_available.stock[0].color;
+        const selectedPrice = selectPrice ? selectPrice : data.color_available.stock[0].price;
+        const selectedImage = currentThumbnailSrc ? currentThumbnailSrc : data.color_available.stock[0].image;
+
+        const getGroductIndex = cartItems.findIndex(
+            (item) => item.name === data.name && item.selectedColor === selectedColor,
+        );
+
+        if (getGroductIndex !== -1) {
+            // Product with the same name and color already exists in the cart
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[getGroductIndex].amount += 1;
+            setCartItems(updatedCartItems);
+        } else {
+            // Product with the same name and color doesn't exist in the cart, add a new product
+            setCartItems((prevItems) => [
+                ...prevItems,
+                {
+                    ...data,
+                    selectedColor,
+                    price_discount: selectedPrice,
+                    images: [selectedImage],
+                    amount: 1,
+                },
+            ]);
         }
-        window.location.reload(false);
+        // Change quantity in cart on header
+        handleQuantityInCart();
     };
 
+    // Handle when click buy now
     const handleBuyNow = () => {
-        const dataProduct = data;
-        if (handleToBuyNow) {
-            handleToBuyNow(dataProduct);
+        setIsLoading(true);
+        const selectedColor = selectNameColor ? selectNameColor : data.color_available.stock[0].color;
+        const selectedPrice = selectPrice ? selectPrice : data.color_available.stock[0].price;
+        const selectedImage = currentThumbnailSrc ? currentThumbnailSrc : data.color_available.stock[0].image;
+
+        const getGroductIndex = cartItems.findIndex(
+            (item) => item.name === data.name && item.selectedColor === selectedColor,
+        );
+
+        if (getGroductIndex !== -1) {
+            // Product with the same name and color already exists in the cart
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[getGroductIndex].amount += 1;
+            setCartItems(updatedCartItems);
+        } else {
+            // Product with the same name and color doesn't exist in the cart, add a new product
+            setCartItems((prevItems) => [
+                ...prevItems,
+                {
+                    ...data,
+                    selectedColor,
+                    price_discount: selectedPrice,
+                    images: [selectedImage],
+                    amount: 1,
+                },
+            ]);
         }
+        // Change quantity in cart on header
+        handleQuantityInCart();
+        setTimeout(() => {
+            Navigate('/cart');
+            setIsLoading(false);
+        }, 500);
     };
 
-    const handleColorProduct = (data) => {
+    // Chage Color when Click Color of Product
+    const handleColorProduct = (dataImage, index, price, nameColor) => {
         setActiveImageIndex(0);
-        setCurrentThumbnailSrc(data);
+        setCurrentThumbnailSrc(dataImage);
+        setActiveColorIndex(index);
+        setSelectPrice(price);
+        setSelectNameColor(nameColor);
+        data.images[0] = dataImage;
     };
 
+    const handlePrice = (price) => {
+        setNewPrice(price);
+    };
     const currentSlug = window.location.pathname.split('/').slice(-1)[0];
 
     return (
         <>
+            {isLoading && <ModalLoading />}
             {data && (
                 <div className={cx('row')}>
-                    <div className={cx('product-img', 'col-12 col-lg-5 col-xl-5 col-md-10')}>
+                    <div className={cx('product-img', 'col-12 col-sm-12 col-lg-5 col-xl-5 col-md-12')}>
                         {/* THUMB IMG */}
-                        <div className={cx('img-main-container')}>
+                        <div className={cx('img-main-container')} ref={myRef}>
                             <div
                                 style={{
-                                    transform: `translate3d(-${activeImageIndex * 406}px, 0px, 0px)`,
+                                    transform: `translate3d(-${activeImageIndex * width}px, 0px, 0px)`,
                                 }}
                                 className={cx('img-main-list')}
                             >
                                 {data.images.map((image, index) => (
                                     <img
                                         style={{
-                                            width: '406px',
+                                            width: `${width}px`,
+                                            height: `${width <= 766 ? 320 : width}px`,
                                         }}
                                         key={index}
                                         src={currentThumbnailSrc ? currentThumbnailSrc : image}
@@ -101,15 +206,17 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
                                     />
                                 ))}
                             </div>
-                        </div>
-                        {/* ICON THUMB-IMG */}
-                        <div className={cx('icon-list')}>
-                            <BsCaretRight className={cx('icon-right')} onClick={handleNext} />
-                            <BsCaretLeft className={cx('icon-left')} onClick={handlePrev} />
+                            <div className={cx('icon-list')}>
+                                <div className={cx('icon-item')}>
+                                    <BsCaretRight className={cx('icon-right')} onClick={handleNext} />
+                                </div>
+                                <div className={cx('icon-item')}>
+                                    <BsCaretLeft className={cx('icon-left')} onClick={handlePrev} />
+                                </div>
+                            </div>
                         </div>
                         {/* DESCRIPTION IMAGES */}
-                        <div className={cx('img-details-list', 'mt-5')}>
-                            {/* ICON DESCRIPTION IMAGES  */}
+                        <div className={cx('img-details-list', 'mt-4')}>
                             {/* IMAGES */}
                             {data.images.map((image, index) => (
                                 <div
@@ -125,7 +232,7 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
                         </div>
                     </div>
                     {/* COT 2 */}
-                    <div className={cx('product-details', 'px-5', 'col-sm-12', 'col-lg', 'col-12 col-xl-7 col-md-12')}>
+                    <div className={cx('product-details', 'px-4', 'col-sm-12', 'col-lg', 'col-12 col-xl-7 col-md-12')}>
                         <div className={cx('product-info')}>
                             {/* NAME */}
                             <h3 className={cx('product-name')}>{data.name}</h3>
@@ -140,7 +247,13 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
                             <h3 className={cx('price-buy')}>Giá bán</h3>
                             {/* PRODUCT-PRICE */}
                             <div className={cx('price')}>
-                                <span className={cx('price-discount')}>{data.price_discount}đ</span>
+                                <span className={cx('price-discount')}>
+                                    {newPrice ? (
+                                        <FormattedPrice value={newPrice} />
+                                    ) : (
+                                        <FormattedPrice value={data.color[0].price} />
+                                    )}
+                                </span>
                                 <span className={cx('price-real')}>{data.price}đ</span>
                             </div>
                             {/* PRODUCT-MEMORY */}
@@ -157,12 +270,12 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
                                             key={index}
                                             className={cx('product-memory-item', {
                                                 active: data.link === currentSlug, // Thêm lớp active nếu slug trùng khớp
-                                                'col-auto': true,
+                                                col: true,
                                             })}
                                         >
                                             <Link to={`/product/${data.link}`}>
-                                                <p className={cx('product-memory-name')}>{data.info.name}</p>
-                                                <p className={cx('product-memory-price')}>{data.info.price}đ</p>
+                                                <p className={cx('product-memory-name')}>{data.name}</p>
+                                                <p className={cx('product-memory-price')}>{data.price}đ</p>
                                             </Link>
                                         </div>
                                     );
@@ -170,28 +283,23 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
                             </div>
                             {/* PRODUCT-COLOR */}
                             <h3 className={cx('product-color-title')}>Màu Sắc</h3>
-                            <div className={cx('product-color-list', 'row')}>
-                                {data.color_available.stock.map((item, index) => (
-                                    <img
-                                        src={item}
-                                        className={cx('prodcut-color-img', 'on', {
-                                            active: index === activeImageIndex,
-                                        })} //'have on just presently(hiện)'
-                                        style={{ width: '60px' }}
-                                        onClick={() => {
-                                            handleColorProduct(item);
-                                        }}
-                                    />
-                                ))}
-                                {data.color_available.out_stock.map((item, index) => (
-                                    <img
-                                        src={item}
-                                        className={cx('prodcut-color-img')} //'have on just presently(hiện)'
-                                        style={{ width: '60px' }}
-                                        onClick={() => {
-                                            handleColorProduct(item);
-                                        }}
-                                    />
+                            <div className={cx('product-color-list')}>
+                                {data.color.map((item, index) => (
+                                    <div>
+                                        <span>
+                                            <img
+                                                src={item.image}
+                                                className={cx('prodcut-color-img', item.stored > 0 ? 'on' : 'off', {
+                                                    active: index === activeColorIndex,
+                                                })} //'have on just presently(hiện)'
+                                                style={{ width: '60px' }}
+                                                onClick={() => {
+                                                    handleColorProduct(item.image, index, item.price, item.color);
+                                                    handlePrice(item.price);
+                                                }}
+                                            />
+                                        </span>
+                                    </div>
                                 ))}
                             </div>
                             {/* PRODUCT DESCTRIPTION */}
@@ -199,124 +307,29 @@ function ProductInfo({ handleAddToCart, handleToBuyNow }) {
                                 <div className={cx('product-description-header')}>
                                     <h3 className={cx('product-description-header-title')}>
                                         <FontAwesomeIcon icon={faGift} className={cx('icon-gift')} />
-                                        {data.name}
+                                        Ưu Đãi Khi Mua {data.name}
                                     </h3>
                                 </div>
                                 <div className={cx('product-description-body')}>
                                     <div className={cx('product-description-info')}>
                                         <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                {' '}
-                                                Giảm{' '}
-                                                <span className={cx('price-description')}>
-                                                    {data.description.one}
-                                                </span>{' '}
-                                                khi mua kèm gói bảo hành VIP 12 tháng 1 Đổi 1
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                {' '}
-                                                Giảm 50% tối đa
-                                                <span className={cx('price-description')}>100.000đ </span> cho thành
-                                                viên mới của Kredivo
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                Giảm 5% tối đa{' '}
-                                                <span className={cx('price-description')}>500.000đ </span> , áp dụng kỳ
-                                                hạn 6/12 tháng và đơn hàng từ 700.000đ khi thanh toán qua Kredivo
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                Giảm 10% tối đa{' '}
-                                                <span className={cx('price-description')}>1.000.000đ </span> , áp dụng
-                                                kỳ hạn 6/12 tháng và đơn hàng từ 6.000.000đ khi thanh toán qua Home
-                                                PayLater
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                {' '}
-                                                Giảm trực tiếp 40%, tối đa{' '}
-                                                <span className={cx('price-description')}>600.000đ </span> VNĐ khi mở
-                                                thẻ TP Bank EVO - (Xem chi tiết)
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                Giảm thêm{' '}
-                                                <span className={cx('price-description', 'red')}>5- 10% </span>
-                                                <span className={cx('price-description')}>
-                                                    cho khách hàng thân thiết khi mua kèm phụ kiện
-                                                </span>{' '}
-                                                (Áp dụng một số sản phẩm)
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                Giảm ngay{' '}
-                                                <span className={cx('price-description', 'red')}>100.000đ</span> Khi Mua
-                                                Kèm{' '}
-                                                <span className={cx('price-description', 'red')}>
-                                                    Apple Watch Series 8 |SE 2022 | Ultra
-                                                </span>
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                Giảm ngay{' '}
-                                                <span className={cx('price-description', 'red')}>100.000đ</span> Khi Mua
-                                                Kèm{' '}
-                                                <span className={cx('price-description', 'red')}>
-                                                    AirPods 2 | AirPods 3 | AirPods Pro
-                                                </span>
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                Hỗ trợ trả góp 0% chỉ cần CCCD gắn chip hoặc 0% qua thẻ tín dụng
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️{' '}
-                                            <span>
-                                                <span className={cx('price-description')}>Thu cũ đổi mới</span> Thu giá
-                                                cao trợ giá đến <span className={cx('price-description')}>95%</span>
-                                            </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️ <span>Giảm thêm tối đa 150.000VNĐ khi sử dụng điểm tích lũy</span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️ <span>Tặng cường lực </span>
-                                        </p>
-                                        <p className={cx('product-description-p')}>
-                                            ✔️ <span>Tặng nón bảo hiểm Minh Tuấn</span>
+                                            {productDescription && <MarkdownRender content={productDescription} />}
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             {/* PRODUCT BUTTON */}
                             <div className={cx('product-btn')}>
+                                <div className={cx('div-icon-comment')}>
+                                    <FontAwesomeIcon icon={faComment} className={cx('icon-comment')} />
+                                </div>
                                 <div className={cx('btn-frist')}>
-                                    <a href="/cart">
-                                        <button className={cx('btn-buy-now')} onClick={() => handleBuyNow()}>
-                                            <h3>MUA NGAY</h3>
-                                            <p>Giao nhanh từ 2 giờ trong nội thành</p>
-                                        </button>
-                                    </a>
+                                    {/* <Link to="/cart"> */}
+                                    <button className={cx('btn-buy-now')} onClick={() => handleBuyNow()}>
+                                        <h3>MUA NGAY</h3>
+                                        <p>Giao nhanh từ 2 giờ trong nội thành</p>
+                                    </button>
+                                    {/* </Link> */}
                                 </div>
                                 <div className={cx('btn-info')}>
                                     <div className={cx('btn-second')}>

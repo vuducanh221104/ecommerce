@@ -1,6 +1,5 @@
 .wrapper {
     width: 100%;
-    padding: 0 14px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 12%);
     display: flex;
     justify-content: center;
@@ -8,8 +7,14 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 10;
+    z-index: 999;
     background-color: #fff;
+}
+.content-header {
+    padding: 4px 0 !important;
+}
+.search-grid {
+    padding: 0 !important;
 }
 
 .logo {
@@ -49,7 +54,6 @@
     background-color: transparent;
 }
 // Actions
-
 .user-avatar {
     width: 34px;
     height: 34px;
@@ -78,9 +82,13 @@
     font-size: 1.2rem;
     font-weight: 700;
     line-height: 35px;
+    margin: 5px 0 0 5px;
     &:hover {
         border: solid transparent 1px;
         background-color: rgba(255, 7, 7, 0.8);
+    }
+    & a {
+        padding: 12px 26px;
     }
 }
 
@@ -100,19 +108,22 @@
         border: solid transparent 1px;
         background-color: rgba(255, 7, 7, 0.8);
     }
+    & a {
+        padding: 10px 5px;
+    }
 }
 .button-authen {
-    margin-top: -4px;
+    margin-top: -6px !important;
     margin-left: 5px;
-    padding: 1px 16px;
+    padding: 0 !important;
 }
 
 // HOTLINE
 .hotline {
     display: flex;
     align-items: start;
-    padding: 1px 16px;
     cursor: pointer;
+    padding: 0 20px !important;
 }
 
 .phone-icon {
@@ -122,9 +133,6 @@
     color: var(--color-hover);
     transform: rotateY(180deg);
     margin-top: 2px;
-}
-
-.hotline-info {
 }
 
 .hotline-name {
@@ -145,8 +153,10 @@
 .cart {
     display: flex;
     align-items: start;
-    padding: 2px 16px;
+    padding: 0 20px !important;
+
     cursor: pointer;
+    position: relative;
     & a {
         display: flex;
     }
@@ -178,7 +188,8 @@
 .house {
     display: flex;
     align-items: start;
-    padding: 2px 16px;
+    padding: 0 20px !important;
+
     cursor: pointer;
     & a {
         display: flex;
@@ -216,7 +227,7 @@
     z-index: 1;
     position: relative;
     left: -2px;
-    top: 108px;
+    top: 110px;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid #ccc;
     padding: 0 26px;
@@ -247,7 +258,7 @@
 }
 
 /* Tablet  */
-@media (min-width: 740px) and (max-width: 1023px) {
+@media (min-width: 740px) and (max-width: 1070px) {
     .content-nav {
         display: none;
     }
@@ -308,6 +319,11 @@
             background-color: transparent;
         }
     }
+    .content-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 /* >= Moblie */
@@ -346,7 +362,7 @@
     .button-authen {
         position: relative;
         top: -5px;
-        left: -9px;
+        left: -5px;
         padding: 0;
     }
     .Signin {
@@ -370,5 +386,100 @@
     }
     .action {
         padding: 0;
+    }
+}
+
+@media (max-width: 740px) {
+    .search-grid {
+        margin-left: -12px;
+    }
+    .button-authen {
+        left: -11px;
+    }
+}
+
+.img-avt {
+    padding-left: 41px;
+    margin-top: -5px;
+}
+
+// USER
+
+.user-wrapper {
+    width: 200px;
+    box-shadow: 0 0.5rem 1rem #00000026;
+    border-radius: 10px;
+    overflow: hidden;
+    & a {
+        display: flex;
+        align-items: center;
+        padding: 5px 12px 0 12px;
+    }
+
+    & span {
+        font-size: 2rem;
+        color: #ff2f46;
+    }
+
+    & p {
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding-left: 10px;
+        padding-top: 8px;
+        color: var(--color-hover);
+    }
+}
+
+@media (max-width: 767px) {
+    .Login {
+        & a {
+            padding: 0;
+        }
+    }
+    .search {
+        padding: 0 4px 0 7px;
+    }
+}
+
+.search {
+    position: relative;
+}
+
+@media (min-width: 400px) and (max-width: 575px) {
+}
+
+@media (min-width: 1000px) and (max-width: 1100px) {
+    .hotline {
+        padding: 0 5px;
+    }
+    .cart {
+        padding: 0 5px;
+    }
+    .house {
+        padding: 0 5px;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1100px) {
+    .hotline {
+        padding: 0 5px !important ;
+    }
+    .cart {
+        padding: 0 5px !important;
+    }
+    .house {
+        padding: 0 5px !important;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1300px) {
+    .hotline {
+        padding: 0 10px !important;
+    }
+    .cart {
+        padding: 0 10px !important;
+    }
+    .house {
+        padding: 0 10px !important;
     }
 }

@@ -1,9 +1,10 @@
 .search-result {
-    width: 35vw;
-    max-height: 330px; /* Giới hạn chiều cao của kết quả tìm kiếm */
-    overflow-y: auto;
+    width: 103%;
+    max-height: 330px;
+    z-index: 999;
     box-shadow: 0 0.5rem 1rem #00000026;
     border-radius: 8px;
+    border-top: 1px solid var(--color-hover);
 }
 
 .search-title {
@@ -61,6 +62,8 @@
 
 .clear,
 .loading {
+    font-size: 1.3rem;
+    background-color: transparent;
     position: absolute;
     right: 62px;
     top: 50%;
@@ -98,11 +101,8 @@
     }
 }
 
-/* > PC  */
-@media (min-width: 1024px) and (max-width: 1200px) {
-}
 /* Tablet  */
-@media (min-width: 740px) and (max-width: 1023px) {
+@media (min-width: 740px) and (max-width: 1070px) {
     .search-result {
         position: relative;
         left: -0.6%;
@@ -112,21 +112,79 @@
 }
 
 /* >= Moblie */
-@media (max-width: 740px) {
-    .search {
-        input {
-            font-size: 0.8rem;
-        }
-        &::after {
-            display: none;
-        }
-    }
-    .sreach-btn {
+@media (max-width: 767px) {
+    .search::after {
+        display: none;
     }
     .search-result {
         position: relative;
         left: -1.5%;
         width: 100vw;
         border-radius: 0;
+    }
+    .clear,
+    .loading {
+        display: none;
+    }
+}
+
+// REPOSIVE SEARCH
+
+@media (min-width: 1225px) and (max-width: 1251px) {
+    .search-result {
+        width: 90% !important;
+    }
+}
+
+@media (min-width: 1190px) and (max-width: 1200px) {
+    .search-result {
+        width: 90%;
+    }
+}
+
+@media (min-width: 1301px) and (max-width: 1329px) {
+    .search-result {
+        width: 92%;
+    }
+}
+
+@media (min-width: 1329px) and (max-width: 1350px) {
+    .search-result {
+        width: 95%;
+    }
+}
+
+@media (min-width: 1351px) and (max-width: 1370px) {
+    .search-result {
+        width: 98%;
+    }
+}
+
+@media (min-width: 1132px) and (max-width: 1190px) {
+    .search-result {
+        width: 86%;
+    }
+}
+
+@media (min-width: 1071px) and (max-width: 1120px) {
+    .search-result {
+        width: 82% !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1225px) {
+    .search-result {
+        width: 84% !important;
+    }
+}
+@media (min-width: 1251px) and (max-width: 1290px) {
+    .search-result {
+        width: 96% !important;
+    }
+}
+
+@media (min-width: 1121px) and (max-width: 1131px) {
+    .search-result {
+        width: 82% !important;
     }
 }

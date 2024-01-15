@@ -1,5 +1,7 @@
+import CategoryProduct from '~/CategoryProduct';
+// Product to Slug
 function Slug() {
-    return <h3>Slug Page</h3>;
+    return <CategoryProduct />;
 }
 
 export default Slug;

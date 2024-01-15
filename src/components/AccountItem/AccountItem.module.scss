@@ -2,14 +2,18 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding: 8px 16px;
     cursor: pointer;
-
+    border: 0.8px solid #ddd;
     .image-product {
         width: 50px;
     }
-
+    & a {
+        display: block;
+        padding: 11px 13px 10px;
+        line-height: 1.2;
+    }
     .info {
+        padding: 0 12px 0 8px;
     }
 
     .name {
@@ -25,9 +29,6 @@
         color: var(--color-hover);
         font-size: 1.4rem;
         font-weight: 500;
-    }
-
-    .price-discount {
     }
 
     .price-real {

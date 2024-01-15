@@ -8,696 +8,224 @@ import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function HeaderNavSub() {
+    const dataNavSub = [
+        {
+            title: 'iPhone',
+            to: '/iphone',
+            img: imagesHeader.iphone,
+            subMenu: [
+                {
+                    title: 'iPhone 14 Series',
+                    to: '/iphone-14-series',
+                    subItems: [
+                        { title: 'iPhone 14 Pro Max', to: '/iphone-14-pro-max' },
+                        { title: 'iPhone 14 Pro', to: '/iphone-14-pro' },
+                        { title: 'iPhone 14 Plus', to: '/iphone-14-plus' },
+                        { title: 'iPhone 14', to: '/iphone-14' },
+                    ],
+                },
+                {
+                    title: 'iPhone 13 Series',
+                    to: '/iphone-13-series',
+                    subItems: [
+                        { title: 'iPhone 13', to: '/iphone-13' },
+                        { title: 'iPhone 13 Pro Max', to: '/iphone-13-mini' },
+                        ,
+                    ],
+                },
+                {
+                    title: 'iPhone 12 Series',
+                    to: '/iphone-12-series',
+                    subItems: [{ title: 'iPhone 12', to: '/iphone-12' }],
+                },
+                {
+                    title: 'iPhone 11 Series',
+                    to: '/iphone-11-series',
+                    subItems: [{ title: 'iPhone 11', to: '/iphone-11' }],
+                },
+            ],
+        },
+        {
+            title: 'iPad',
+            to: '/ipad',
+            img: imagesHeader.ipad,
+            subMenu: [
+                {
+                    title: 'iPad Pro',
+                    to: '/ipad-pro',
+                    subItems: [{ title: 'iPad Pro 2022', to: '/ipad-pro-2022' }],
+                },
+                {
+                    title: 'iPad Air',
+                    to: '/ipad-air',
+                    subItems: [{ title: 'iPad Air 5', to: '/ipad-air-5' }],
+                },
+            ],
+        },
+        {
+            title: 'Watch',
+            to: '/watch',
+            img: imagesHeader.watch,
+            subMenu: [
+                { title: 'Apple Watch Ultra', to: '/apple-watch-ultra' },
+                { title: 'Apple Watch S7', to: '/apple-watch-s7' },
+                { title: 'Apple Watch S6', to: '/apple-watch-s6' },
+                { title: 'Apple Watch SE', to: '/apple-watch-se' },
+                { title: 'Apple Watch S8', to: '/apple-watch-s8' },
+                // Thêm các mục khác nếu cần...
+            ],
+        },
+        {
+            title: 'Mac',
+            to: '/mac',
+            img: imagesHeader.macbook,
+            subMenu: [
+                {
+                    title: 'MacBook',
+                    to: '/macbook',
+                    subItems: [
+                        { title: 'MacBook Pro', to: '/macbook-pro' },
+                        { title: 'MacBook Air', to: '/macbook-air' },
+                        // Thêm các mục khác nếu cần...
+                    ],
+                },
+                { title: 'Mac Studio', to: '/mac-studio' },
+                { title: 'iMac', to: '/imac' },
+                { title: 'Mac mini', to: '/mac-mini' },
+                { title: 'Apple TV', to: '/apple-tv' },
+                // Thêm các mục khác nếu cần...
+            ],
+        },
+        {
+            title: 'Samsung',
+            to: '/samsung',
+            img: imagesHeader.samsung,
+            // Thêm các submenu cho Samsung nếu cần...
+        },
+        {
+            title: 'AirPods',
+            to: '/airpods',
+            img: imagesHeader.airpod,
+            // Các submenu cho AirPods nếu cần...
+        },
+        {
+            title: 'Âm Thanh',
+            to: '/am-thanh',
+            img: imagesHeader.headVolume,
+            subMenu: [
+                {
+                    title: 'Loa',
+                    to: '/loa',
+                    subItems: [
+                        { title: 'Loa Marshall', to: '/loa-marshall' },
+                        { title: 'Loa Bose', to: '/loa-bose' },
+                        // Thêm các loa khác nếu cần...
+                    ],
+                },
+                {
+                    title: 'Tai nghe',
+                    to: '/tai-nghe',
+                    subItems: [
+                        { title: 'Tai nghe Apple', to: '/tai-nghe-apple' },
+                        { title: 'Tai nghe Samsung', to: '/tai-nghe-samsung' },
+                        // Thêm các tai nghe khác nếu cần...
+                    ],
+                },
+                // Thêm các mục khác nếu cần...
+            ],
+        },
+        {
+            title: 'Phụ Kiện',
+            to: '/phu-kien',
+            img: imagesHeader.phuKien,
+            subMenu: [
+                { title: 'Phụ kiện Apple', to: '/phu-kien-apple' },
+                { title: 'Phụ kiện Samsung', to: '/phu-kien-samsung' },
+                { title: 'Cốc - Cáp', to: '/coc-cap-sac' },
+                { title: 'Sạc dự phòng', to: '/sac-du-phong' },
+                { title: 'Bao da - Ốp lưng', to: '/bao-da-op-lung' },
+                // Thêm các mục phụ kiện khác nếu cần...
+            ],
+        },
+        {
+            title: 'Máy cũ',
+            to: '/may-cu-like-new',
+            img: imagesHeader.phoneUsed,
+            subMenu: [
+                { title: 'iPhone', to: '/may-cu-iphone' },
+                { title: 'AirPods', to: '/may-cu-airpods' },
+                { title: 'Mac', to: '/may-cu-mac' },
+                // Thêm các mục máy cũ khác nếu cần...
+            ],
+        },
+        // Thu cũ
+        {
+            title: 'Thu Cũ',
+            to: '/trade-in',
+            img: imagesHeader.exchangePhone,
+            // Các submenu cho Thu Cũ nếu cần...
+        },
+        // Kèo Thơm
+        {
+            title: 'Kèo Thơm',
+            to: '/keo-thom',
+            img: imagesHeader.saleGood,
+        },
+        {
+            title: 'Tin Tức',
+            to: '/news',
+            img: imagesHeader.news,
+        },
+    ];
+
     return (
         <div className={cx('header-nav')}>
-            <div className={cx('header-nav-container', 'container')}>
+            <div className={cx('header-nav-container')}>
                 <ul className={cx('header-list')}>
-                    {/* Iphone */}
-                    <li className={cx('header-item')}>
-                        <Link to="/??" className={cx('header-link')}>
-                            <img src={imagesHeader.iphone} alt="mac" className={cx('header-img')} />
-                            <span className={cx('header-name')}> iPhone </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/iphone-14-series" className={cx('header-navsub-link')}>
-                                        iPhone 14 Series
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-14-pro-max" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 14 Pro Max
+                    {dataNavSub.map((navItem) => (
+                        <li className={cx('header-item')} key={navItem.title}>
+                            <Link to={navItem.to} className={cx('header-link')}>
+                                <img src={navItem.img} alt={navItem.title} className={cx('header-img')} />
+                                <span className={cx('header-name')}>{navItem.title}</span>
+                            </Link>
+                            {navItem.subMenu && (
+                                <div className={cx('header-navsub')}>
+                                    <ul className={cx('header-navsub-list')}>
+                                        {navItem.subMenu.map((subItem) => (
+                                            <li className={cx('header-navsub-item')} key={subItem.title}>
+                                                <Link to={subItem.to} className={cx('header-navsub-link')}>
+                                                    {subItem.title}
                                                 </Link>
+                                                {subItem.subItems && (
+                                                    <div className={cx('menu-mutilevel')}>
+                                                        <ul className={cx('menu-mutilevel-list')}>
+                                                            {subItem.subItems.map((item) => (
+                                                                <li
+                                                                    className={cx('menu-mutilevel-item')}
+                                                                    key={item.title}
+                                                                >
+                                                                    <Link
+                                                                        to={item.to}
+                                                                        className={cx('menu-mutilevel-link')}
+                                                                    >
+                                                                        <FontAwesomeIcon
+                                                                            icon={faCircle}
+                                                                            className={cx('menu-mutilevel-icon')}
+                                                                        />
+                                                                        {item.title}
+                                                                    </Link>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
                                             </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-14-pro" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 14 Pro
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-14-plus" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 14 Plus
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-14" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 14
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/iphone-13-series" className={cx('header-navsub-link')}>
-                                        iPhone 13 Series
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-13-pro-max" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 13 Pro Max
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-13-pro" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 13 Pro
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-13" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 13
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-13-mini" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 13 mini
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/iphone-12-series" className={cx('header-navsub-link')}>
-                                        iPhone 12 Series
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-12" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 12
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/iphone-12-mini" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Iphone 12 mini
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/iphone-13-series" className={cx('header-navsub-link')}>
-                                        iPhone 11 Series
-                                        {/* MENU-MUTILEVEL */}
-                                        <div className={cx('menu-mutilevel')}>
-                                            <ul className={cx('menu-mutilevel-list')}>
-                                                <li className={cx('menu-mutilevel-item')}>
-                                                    <Link to="/iphone-11" className={cx('menu-mutilevel-link')}>
-                                                        <FontAwesomeIcon
-                                                            icon={faCircle}
-                                                            className={cx('menu-mutilevel-icon')}
-                                                        />
-                                                        Iphone 11
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/iphone-se" className={cx('header-navsub-link')}>
-                                        iPhone SE 2022
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* IPAD */}
-                    <li className={cx('header-item')}>
-                        <Link to="/iPad" className={cx('header-link')}>
-                            <img src={imagesHeader.ipad} alt="iPad" className={cx('header-img')} />
-                            <span className={cx('header-name')}> iPad </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/ipad-pro" className={cx('header-navsub-link')}>
-                                        iPad Pro
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/ipad-pro-2021" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    iPad Pro 2021
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/ipad-pro-2022" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    iPad Pro 2022
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/iphone-air" className={cx('header-navsub-link')}>
-                                        iPad Air
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/ipad-air-4" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    iPad Air 4
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/ipad-air-5" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    iPad Air 5
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/ipad-10-9-2022" className={cx('header-navsub-link')}>
-                                        iPad Gen 10 ("10.9")
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/ipad-10-2" className={cx('header-navsub-link')}>
-                                        iPad Gen 9 (10.2")
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/ipad-mini" className={cx('header-navsub-link')}>
-                                        iPad mini
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* WATCH */}
-                    <li className={cx('header-item')}>
-                        <Link to="/iPad" className={cx('header-link')}>
-                            <img src={imagesHeader.watch} alt="watch" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Watch </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-ultra" className={cx('header-navsub-link')}>
-                                        Apple Watch Ultra
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-s7" className={cx('header-navsub-link')}>
-                                        Apple Watch S7
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-s6" className={cx('header-navsub-link')}>
-                                        Apple Watch S6
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-se" className={cx('header-navsub-link')}>
-                                        Apple Watch SE
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-s8" className={cx('header-navsub-link')}>
-                                        Apple Watch S8
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* MAC */}
-                    <li className={cx('header-item')}>
-                        <Link to="/mac" className={cx('header-link')}>
-                            <img src={imagesHeader.macbook} alt="mac" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Mac </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/macbook" className={cx('header-navsub-link')}>
-                                        MacBook
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/macbook-pro" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    MacBook Pro
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/macbook-air" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    MacBook Air
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/macbook-air-15" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    MacBook Air 15"
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/mac-studio" className={cx('header-navsub-link')}>
-                                        Mac Studio
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/imac" className={cx('header-navsub-link')}>
-                                        iMac
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/mac-mini" className={cx('header-navsub-link')}>
-                                        Mac mini
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-tv" className={cx('header-navsub-link')}>
-                                        Apple TV
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* LAPTOP */}
-                    <li className={cx('header-item')}>
-                        <Link to="/laptop" className={cx('header-link')}>
-                            <img src={imagesHeader.laptop} alt="laptop" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Laptop </span>
-                        </Link>
-                    </li>
-                    {/* SAMSUNG */}
-                    <li className={cx('header-item')}>
-                        <Link to="/samsung" className={cx('header-link')}>
-                            <img src={imagesHeader.samsung} alt="samsung" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Samsung </span>
-                        </Link>
-                    </li>
-                    {/* AIRPODS */}
-                    <li className={cx('header-item')}>
-                        <Link to="/airpods" className={cx('header-link')}>
-                            <img src={imagesHeader.airpod} alt="airpods" className={cx('header-img')} />
-                            <span className={cx('header-name')}> AirPods </span>
-                        </Link>
-                    </li>
-                    {/* MAC */}
-                    <li className={cx('header-item')}>
-                        <Link to="/am-thanh" className={cx('header-link')}>
-                            <img src={imagesHeader.headVolume} alt="am-thanh" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Âm Thanh </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/loa" className={cx('header-navsub-link')}>
-                                        Loa
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-marshall" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Marshall
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-bose" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Bose
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-bang-olufsen" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Bang & Olufsen
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-harman-kardon" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Harman/Kardon
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-jbl" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa JBL
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-samsung" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Samsung
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-lg" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa LG
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-sony" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Sony
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-fender" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Fender
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/loa-anker" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Loa Anker
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/tai-nghe" className={cx('header-navsub-link')}>
-                                        Tai nghe
-                                    </Link>
-                                    {/* MENU-MUTILEVEL */}
-                                    <div className={cx('menu-mutilevel')}>
-                                        <ul className={cx('menu-mutilevel-list')}>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-apple" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Apple
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-samsung" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Samsung
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-marshall" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Marshall
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-bose" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Bose
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-b-o" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe B&O
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-jbl" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe JBL
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-lg" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe LG
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="tai-nghe-sennheiser" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Sennheiser
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-sony" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Sony
-                                                </Link>
-                                            </li>
-                                            <li className={cx('menu-mutilevel-item')}>
-                                                <Link to="/tai-nghe-shoks" className={cx('menu-mutilevel-link')}>
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={cx('menu-mutilevel-icon')}
-                                                    />
-                                                    Tai nghe Shokz
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* PHỤ KIỆN */}
-                    <li className={cx('header-item')}>
-                        <Link to="/phu-kien" className={cx('header-link')}>
-                            <img src={imagesHeader.phuKien} alt="phu-kien" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Phụ Kiện </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/phu-kien-apple" className={cx('header-navsub-link')}>
-                                        Phụ kiện Apple
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/phu-kien-samsung" className={cx('header-navsub-link')}>
-                                        Phụ kiện Samsung
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/coc-cap-sac" className={cx('header-navsub-link')}>
-                                        Cốc - Cáp
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/sac-du-phong" className={cx('header-navsub-link')}>
-                                        Sạc dự phòng
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/bao-da-op-lung" className={cx('header-navsub-link')}>
-                                        Bao da - Ốp lưng
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/dan-cuong-luc" className={cx('header-navsub-link')}>
-                                        Dán cường lực
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/phu-kien-macbook" className={cx('header-navsub-link')}>
-                                        Phụ kiện MacBook
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/mouse" className={cx('header-navsub-link')}>
-                                        Bàn phím - Chuột
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="balo-tui-chong-shock" className={cx('header-navsub-link')}>
-                                        Balo - Túi chống shock
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/microsoft-office" className={cx('header-navsub-link')}>
-                                        Gói Microsoft Office
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* MÁY CŨ */}
-                    <li className={cx('header-item')}>
-                        <Link to="/may-cu-like-new" className={cx('header-link')}>
-                            <img src={imagesHeader.phoneUsed} alt="May-Cu" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Máy cũ </span>
-                        </Link>
-                        <div className={cx('header-navsub')}>
-                            <ul className={cx('header-navsub-list')}>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-ultra" className={cx('header-navsub-link')}>
-                                        iPhone
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-s7" className={cx('header-navsub-link')}>
-                                        Airpods
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-s6" className={cx('header-navsub-link')}>
-                                        Mac
-                                    </Link>
-                                </li>
-                                <li className={cx('header-navsub-item')}>
-                                    <Link to="/apple-watch-se" className={cx('header-navsub-link')}>
-                                        Magic Mouse
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    {/* Thu Cũ */}
-                    <li className={cx('header-item')}>
-                        <Link to="/trade-in" className={cx('header-link')}>
-                            <img src={imagesHeader.exchangePhone} alt="Trade-In" className={cx('header-img')} />
-                            <span className={cx('header-name')}> Thu Cũ </span>
-                        </Link>
-                    </li>
-                    {/* KÈO THƠM */}
-                    <li className={cx('header-item')}>
-                        <Link to="/keo-thom" className={cx('header-link')}>
-                            <img src={imagesHeader.saleGood} alt="KeoThom" className={cx('header-img')} />
-                            <span className={cx('header-name')}>Kèo Thơm </span>
-                        </Link>
-                    </li>
-                    {/* TIN TỨC */}
-                    <li className={cx('header-item')}>
-                        <Link to="/tin-tuc" className={cx('header-link')}>
-                            <img src={imagesHeader.news} alt="KeoThom" className={cx('header-img')} />
-                            <span className={cx('header-name')}>Tin tức </span>
-                        </Link>
-                    </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </li>
+                    ))}
                 </ul>
             </div>
         </div>
